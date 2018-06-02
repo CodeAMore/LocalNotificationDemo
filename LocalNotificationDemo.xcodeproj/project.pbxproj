@@ -196,6 +196,7 @@
 				TargetAttributes = {
 					C839D0641FA0DB050021C58D = {
 						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = QZNZDCDCM2;
 						ProvisioningStyle = Automatic;
 					};
 					C839D07B1FA0DB050021C58D = {
@@ -414,6 +415,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = QZNZDCDCM2;
 				INFOPLIST_FILE = LocalNotificationDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Organization.LocalNotificationDemo;
@@ -426,6 +428,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = QZNZDCDCM2;
 				INFOPLIST_FILE = LocalNotificationDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Organization.LocalNotificationDemo;

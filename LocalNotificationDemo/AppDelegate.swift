@@ -8,18 +8,57 @@
 
 import UIKit
 import CoreData
+import UserNotifications
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) {(accepted, error) in
+            if !accepted {
+                print("Notification access denied.")
+            }
+            else {
+                self.scheduleNotification()
+            }
+        }
+        
+        let action = UNNotificationAction(identifier: "reminder", title: "Remind Me Later", options: [])
+        let category = UNNotificationCategory(identifier: "Category", actions: [action], intentIdentifiers: [], options: [])
+        UNUserNotificationCenter.current().setNotificationCategories([category])
         return true
     }
 
+    func scheduleNotification() {
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 60,repeats: false)
+        let content = UNMutableNotificationContent()
+        content.title = "Reminder"
+        content.body = "Test Reminder"
+        content.sound = UNNotificationSound.default()
+   
+        let request = UNNotificationRequest(identifier: "reminder", content: content, trigger: trigger)
+        
+        UNUserNotificationCenter.current().delegate = self
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+        UNUserNotificationCenter.current().add(request) {(error) in
+            if let error = error {
+                print("Error : \(error)")
+            }
+        }
+       }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        
+        if response.actionIdentifier == "reminder" {
+            print("Notification Remind Later")
+        }
+    }
+
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
@@ -90,4 +129,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 }
+
 
